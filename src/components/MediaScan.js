@@ -632,7 +632,6 @@ const MediaScan = () => {
                       handleInputChange(e);
                     }}
                     style={{ margin: "5px" }}
-                    disabled={!isRoleAllowed}
                   >
                     <option value={initialDropdownValue}>Select AC</option>
                     {dropdownData.ac.map((assembly) => (
