@@ -1,0 +1,124 @@
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import "../css/login.css";
+import localforage from "localforage";
+import img from "../STC_logo-01.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/update");
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setEmailError("");
+      setPasswordError("");
+
+      const response = await axios.post(
+        "http://15.206.128.21:5000/api/auth/login",
+        {
+          email,
+          password,
+        }
+      );
+
+      const userEmail = response.data.userObj.email;
+      const userName = response.data.userObj.userName;
+      const token = response.data.token;
+      const id = response.data.userObj._id;
+      const role = response.data.userObj.roles[0];
+      const role1 = response.data.userObj.roles[1];
+      const roles = response.data.userObj.roles;
+      const data = response.data;
+      await localforage.setItem("userName", userName);
+      await localforage.setItem("email", userEmail);
+      await localforage.setItem("token", token);
+      await localforage.setItem("ID", id);
+      await localforage.setItem("role", role);
+      await localforage.setItem("role1", role1);
+      await localforage.setItem("roles", roles);
+      console.log("Login success:", response.data.message);
+      navigate("/welcome");
+      window.location.reload(); // Reload the page once after navigation
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        setEmailError("Incorrect email or password");
+        setPasswordError("Incorrect email or password");
+      } else {
+        console.error("Login failed:", error.response.data.message);
+      }
+    }
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  return (
+    <div>
+      <div className="container">
+        <div className="login">
+          <img src={img} className="img" alt="logo" />
+          <h1>Sign In</h1>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              style={{ width: "100%" }}
+            />
+            <br />
+            <div className="password-input" style={{ position: "relative", marginBottom: "20px" }}>
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                style={{ width: "100%" }}
+              />
+              <div
+                className="eye-icon"
+                onClick={toggleShowPassword}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                }}
+              >
+                <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
+              </div>
+            </div>
+            <p className="error">{passwordError}</p>
+            <div className="bttn">
+              <button type="submit" className="button">
+                Sign In
+              </button>
+            </div>
+          </form>
+          <button onClick={handleClick} className="button">
+            Update Password
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
