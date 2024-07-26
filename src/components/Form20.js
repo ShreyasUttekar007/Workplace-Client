@@ -270,7 +270,7 @@ const Form20 = () => {
             </select>
           </label>
           <label>
-            Parliment Constituency
+            Parliament Constituency
             <select
               name="pc"
               value={momData.pc}

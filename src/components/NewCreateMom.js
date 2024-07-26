@@ -309,7 +309,7 @@ const NewCreateMom = () => {
             </select>
           </label>
           <label>
-            Parliment Constituency
+            Parliament Constituency
             <select
               name="pc"
               value={momData.pc}
