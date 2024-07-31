@@ -152,6 +152,7 @@ const Form20Dashboard = () => {
           "UBT",
           "NCP(AP)",
           "NCP(SP)",
+          "MVA",
           "INC",
           "MNS",
           "Other Party",
@@ -479,6 +480,7 @@ const Form20Dashboard = () => {
   const allowedRoles = [
     "admin",
     "mod",
+    "soul",
     "Eastern Vidarbha",
     "Konkan",
     "Marathwada",

@@ -182,6 +182,7 @@ const MediaScan = () => {
           "UBT",
           "NCP(AP)",
           "NCP(SP)",
+          "MVA",
           "INC",
           "MNS",
           "Other Party",
@@ -401,6 +402,7 @@ const MediaScan = () => {
       "UBT",
       "NCP(AP)",
       "NCP(SP)",
+      "MVA",
       "INC",
       "MNS",
       "Other Party",
@@ -544,6 +546,7 @@ const MediaScan = () => {
   const allowedRoles = [
     "admin",
     "mod",
+    "soul",
     "Eastern Vidarbha",
     "Konkan",
     "Marathwada",
@@ -573,12 +576,10 @@ const MediaScan = () => {
             <div className="mom-count">
               <div
                 className="select-columns"
-                // style={{
-                //   padding: "20px",
-                //   display: "flex",
-                //   justifyContent: "space-around",
-                //   fontSize: "20px",
-                // }}
+                style={{
+                  gridTemplateColumns: "1fr 1fr 1fr"
+                }}
+                
               >
                 <label>
                   Zone
@@ -601,7 +602,7 @@ const MediaScan = () => {
                     ))}
                   </select>
                 </label>
-                <label>
+                {/* <label>
                   Parliament Constituency
                   <select
                     name="pc"
@@ -621,7 +622,7 @@ const MediaScan = () => {
                       </option>
                     ))}
                   </select>
-                </label>
+                </label> */}
                 <label>
                   Assembly Constituency
                   <select
@@ -660,12 +661,9 @@ const MediaScan = () => {
               </div>
               <div
                 className="select-columns"
-                // style={{
-                //   padding: "20px",
-                //   display: "flex",
-                //   justifyContent: "space-around",
-                //   fontSize: "20px",
-                // }}
+                style={{
+                  gridTemplateColumns: "1fr 1fr 1fr"
+                }}
               >
                 {/* <label>
                   Start Date
@@ -707,10 +705,6 @@ const MediaScan = () => {
                 <div className="total-count" style={{ margin: "5px" }}>
                   <h3>Zone-wise Media Scan Count: </h3>
                   <h6>{zoneCount}</h6>
-                </div>
-                <div className="total-count" style={{ margin: "5px" }}>
-                  <h3>Pc-wise Media Scan Count: </h3>
-                  <h6>{pcCount}</h6>
                 </div>
                 <div className="total-count" style={{ margin: "5px" }}>
                   <h3>Ac-wise Media Scan Count: </h3>

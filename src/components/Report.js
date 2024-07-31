@@ -159,6 +159,7 @@ const Report = () => {
           "UBT",
           "NCP(AP)",
           "NCP(SP)",
+          "MVA",
           "INC",
           "MNS",
           "Other Party",
@@ -508,6 +509,7 @@ const Report = () => {
   const allowedRoles = [
     "admin",
     "mod",
+    "soul",
     "Eastern Vidarbha",
     "Konkan",
     "Marathwada",

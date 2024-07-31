@@ -232,7 +232,7 @@ const Form17 = () => {
       });
       setDocumentError("");
       document.getElementById("createMomForm").reset();
-      navigate("/create-form20")
+      navigate("/create-form17")
     } catch (error) {
       console.error("Error creating Mom entry:", error);
     }

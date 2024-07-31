@@ -196,6 +196,7 @@ const MomData = () => {
           "UBT",
           "NCP(AP)",
           "NCP(SP)",
+          "MVA",
           "INC",
           "MNS",
           "Other Party",
@@ -415,6 +416,7 @@ const MomData = () => {
       "UBT",
       "NCP(AP)",
       "NCP(SP)",
+      "MVA",
       "INC",
       "MNS",
       "Other Party",
@@ -538,6 +540,7 @@ const MomData = () => {
   const allowedRoles = [
     "admin",
     "mod",
+    "soul",
     "Eastern Vidarbha",
     "Konkan",
     "Marathwada",

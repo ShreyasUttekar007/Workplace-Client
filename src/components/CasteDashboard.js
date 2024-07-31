@@ -222,6 +222,7 @@ const CasteDashboard = () => {
           "UBT",
           "NCP(AP)",
           "NCP(SP)",
+          "MVA",
           "INC",
           "MNS",
           "Other Party",
@@ -508,6 +509,7 @@ const CasteDashboard = () => {
   const allowedRoles = [
     "admin",
     "mod",
+    "soul",
     "Eastern Vidarbha",
     "Konkan",
     "Marathwada",

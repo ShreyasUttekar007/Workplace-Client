@@ -157,19 +157,28 @@ const SideBar = () => {
               BI Dashboard
             </div>
           </a>
-          {role !== "mod" && role !== "state" ? null : (
+          {role !== "mod" &&
+          role !== "state" &&
+          email !== "rishabhsachdeav@showtimeconsulting.in" &&
+          email !== "ashwinibambal@showtimeconsulting.in" &&
+          email !== "bikash@showtimeconsulting.in" &&
+          email !== "ashish@showtimeconsulting.in" &&
+          email !== "shouvik@showtimeconsulting.in" &&
+          email !== "aparnaj@showtimeconsulting.in" &&
+          email !== "anirban@showtimeconsulting.in" ? null : (
             <a href="/survey-dashboard" className="w3-bar-item w3-button">
               <div className="main-text-box">
-              <FontAwesomeIcon
-                icon={faPieChart}
-                className="font-pdf2"
-                size="1x"
-              />
-              Survey Dashboard
+                <FontAwesomeIcon
+                  icon={faPieChart}
+                  className="font-pdf2"
+                  size="1x"
+                />
+                Survey Dashboard
               </div>
             </a>
           )}
-          {role !== "mod" ? null : (
+          {role !== "mod" &&
+          email !== "prasad.p@showtimeconsulting.in" ? null : (
             <a href="/userdashboard" className="w3-bar-item w3-button">
               <div className="main-text-box">
                 <FontAwesomeIcon
@@ -182,7 +191,8 @@ const SideBar = () => {
             </a>
           )}
 
-          {role !== "mod" ? null : (
+          {role !== "mod" &&
+          email !== "prasad.p@showtimeconsulting.in" ? null : (
             <a
               href="/nWuRGm1GvLXyCmQ6TbxqfQ7YasvDlY8z87TxUHrX0HUhX0Pxa9"
               className="w3-bar-item w3-button"
@@ -197,7 +207,7 @@ const SideBar = () => {
               </div>
             </a>
           )}
-          {role !== "mod" && role !== "soul"? null : (
+          {role !== "mod" && role !== "soul" ? null : (
             <a href="/createMom" className="w3-bar-item w3-button">
               <div className="main-text-box">
                 <FontAwesomeIcon
@@ -235,7 +245,8 @@ const SideBar = () => {
               </div>
             </a>
           )}
-          {role !== "mod" && role !== "soul" &&
+          {role !== "mod" &&
+          role !== "soul" &&
           email !== "hiteshideshmukh@showtimeconsulting.in" &&
           email !== "aditiambekar@showtimeconsulting.in" &&
           email !== "akash.jaywant@showtimeconsulting.in" &&
@@ -264,7 +275,8 @@ const SideBar = () => {
             </div>
           </a>
 
-          {role !== "mod" && role !== "soul" &&
+          {role !== "mod" &&
+          role !== "soul" &&
           email !== "hiteshideshmukh@showtimeconsulting.in" &&
           email !== "aditiambekar@showtimeconsulting.in" &&
           email !== "pratikubale@showtimeconsulting.in" &&

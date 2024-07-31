@@ -37,6 +37,7 @@ const UpdateIDI = () => {
     "UBT",
     "NCP(AP)",
     "NCP(SP)",
+    "MVA",
     "INC",
     "MNS",
     "Other Party",

@@ -63,6 +63,7 @@ const SurveyDashboard = () => {
             justifyContent: "center",
             alignItems: "center",
             height: "60vh",
+            flexWrap:"wrap",
           }}
         >
           <Card

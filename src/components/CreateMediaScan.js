@@ -10,7 +10,6 @@ const CreateMediaScan = () => {
   const [momData, setMomData] = useState({
     district: "",
     zone: "",
-    pc: "",
     constituency: "",
     organization: "party", // Default to "party"
     organizationName: "",
@@ -43,6 +42,7 @@ const CreateMediaScan = () => {
     "UBT",
     "NCP(AP)",
     "NCP(SP)",
+    "MVA",
     "INC",
     "MNS",
     "Other Party",
@@ -109,11 +109,11 @@ const CreateMediaScan = () => {
 
     const filteredpc = data
       .filter((item) => item["Zone"] === selectedZone)
-      .map((item) => item["Pc Name and Number"]);
+      .map((item) => item["Ac Name and Number"]);
 
     setDropdownData((prevData) => ({
       ...prevData,
-      pc: [...new Set(filteredpc)],
+      ac: [...new Set(filteredpc)],
     }));
 
     setMomData((prevData) => ({
@@ -216,7 +216,6 @@ const CreateMediaScan = () => {
       setMomData({
         district: "",
         zone: "",
-        pc: "",
         constituency: "",
         organization: selectedType, 
         organizationName: "",
@@ -263,7 +262,7 @@ const CreateMediaScan = () => {
               ))}
             </select>
           </label>
-          <label>
+          {/* <label>
             Parliament Constituency
             <select
               name="pc"
@@ -283,7 +282,7 @@ const CreateMediaScan = () => {
                 </option>
               ))}
             </select>
-          </label>
+          </label> */}
           <label>
             Assembly Constituency
             <select
@@ -294,7 +293,7 @@ const CreateMediaScan = () => {
                 handleChange(e);
               }}
               required
-              disabled={!momData.pc}
+              disabled={!momData.zone}
             >
               <option value="" disabled>
                 Select AC
@@ -306,8 +305,6 @@ const CreateMediaScan = () => {
               ))}
             </select>
           </label>
-        </div>
-        <div className="form-row">
           <label>
             District
             <select
@@ -331,6 +328,9 @@ const CreateMediaScan = () => {
               ))}
             </select>
           </label>
+        </div>
+        <div className="form-row">
+          
           <label style={{ width: "30%" }}>
             Select Organization
             <div className="radio-div">
@@ -402,6 +402,24 @@ const CreateMediaScan = () => {
               />
             </label>
           )}
+           <label>
+            Sentiment
+            <select
+              name="sentiment"
+              value={momData.sentiment}
+              onChange={handleChange}
+              required
+            >
+              <option value="" disabled>
+                Select Sentiment
+              </option>
+              {sentiment.map((sent, index) => (
+                <option key={index} value={sent}>
+                  {sent}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
         <div className="form-row">
           <label>
@@ -439,24 +457,7 @@ const CreateMediaScan = () => {
           </label>
         </div>
         <div className="form-row2">
-          <label>
-            Sentiment
-            <select
-              name="sentiment"
-              value={momData.sentiment}
-              onChange={handleChange}
-              required
-            >
-              <option value="" disabled>
-                Select Sentiment
-              </option>
-              {sentiment.map((sent, index) => (
-                <option key={index} value={sent}>
-                  {sent}
-                </option>
-              ))}
-            </select>
-          </label>
+         
           <label style={{width:"65%"}}>
             Summary
             <textarea

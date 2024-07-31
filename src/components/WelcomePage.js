@@ -106,7 +106,15 @@ const WelcomePage = () => {
             BI Dashboard
           </a>
 
-          {role !== "mod" && role !== "state" ? null : (
+          {role !== "mod" &&
+          role !== "state" &&
+          email !== "rishabhsachdeav@showtimeconsulting.in" &&
+          email !== "ashwinibambal@showtimeconsulting.in" &&
+          email !== "bikash@showtimeconsulting.in" &&
+          email !== "ashish@showtimeconsulting.in" &&
+          email !== "shouvik@showtimeconsulting.in" &&
+          email !== "aparnaj@showtimeconsulting.in" &&
+          email !== "anirban@showtimeconsulting.in" ? null : (
             <a href="/survey-dashboard" className="menu-buttons">
               <FontAwesomeIcon
                 icon={faPieChart}
@@ -116,7 +124,8 @@ const WelcomePage = () => {
               Survey Dashboard
             </a>
           )}
-          {role !== "mod" ? null : (
+          {role !== "mod" &&
+          email !== "prasad.p@showtimeconsulting.in" ? null : (
             <a href="/userdashboard" className="menu-buttons">
               <FontAwesomeIcon
                 icon={faUsersLine}
@@ -129,7 +138,8 @@ const WelcomePage = () => {
         </div>
         <h2 className="head-text-welcome">Upload Data</h2>
         <div className="buttons2">
-          {role !== "mod" ? null : (
+          {role !== "mod" &&
+          email !== "prasad.p@showtimeconsulting.in" ? null : (
             <a
               href="/nWuRGm1GvLXyCmQ6TbxqfQ7YasvDlY8z87TxUHrX0HUhX0Pxa9"
               className="menu-buttons"
