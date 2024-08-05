@@ -650,7 +650,7 @@ const MediaScan = () => {
                     ))}
                   </select>
                 </label>
-                <label>
+                {/* <label>
                   Start Date
                   <input
                     type="date"
@@ -674,7 +674,7 @@ const MediaScan = () => {
                     disabled={!startDate}
                     style={{ margin: "5px" }}
                   />
-                </label>
+                </label> */}
                 <div className="export-button">
                   <ReactToPrint
                     trigger={() => (
