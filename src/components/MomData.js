@@ -845,7 +845,7 @@ const MomData = () => {
                           )}
 
                           {role !== "mod" &&
-                          role !== "soul" && email !== "hiteshideshmukh@showtimeconsulting.in" &&
+                          role !== "soul" &&
                           email !== "aditiambekar@showtimeconsulting.in" &&
                           email !== "pratikubale@showtimeconsulting.in" &&
                           email !== "akash.jaywant@showtimeconsulting.in" &&

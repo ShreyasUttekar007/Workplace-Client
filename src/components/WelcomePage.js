@@ -89,17 +89,21 @@ const WelcomePage = () => {
             <FontAwesomeIcon icon={faFolder} className="font-pdf" size="3x" />
             IDI Dashboard
           </a>
-          <a href="/caste-dashboard" className="menu-buttons">
-            <FontAwesomeIcon icon={faPieChart} className="font-pdf" size="3x" />
-            Caste Dashboard
-          </a>
           <a href="/booth-list" className="menu-buttons">
             <FontAwesomeIcon icon={faListUl} className="font-pdf" size="3x" />
             Booth List
           </a>
+          <a href="/candidate-list" className="menu-buttons">
+            <FontAwesomeIcon icon={faListUl} className="font-pdf" size="3x" />
+            Candidate List
+          </a>
           <a href="/media-scan" className="menu-buttons">
             <FontAwesomeIcon icon={faPodcast} className="font-pdf" size="3x" />
             Media Scan
+          </a>
+          <a href="/caste-dashboard" className="menu-buttons">
+            <FontAwesomeIcon icon={faPieChart} className="font-pdf" size="3x" />
+            Caste Dashboard
           </a>
           <a href="/state-dashboard" className="menu-buttons">
             <FontAwesomeIcon icon={faPieChart} className="font-pdf" size="3x" />
@@ -114,7 +118,10 @@ const WelcomePage = () => {
           email !== "ashish@showtimeconsulting.in" &&
           email !== "shouvik@showtimeconsulting.in" &&
           email !== "aparnaj@showtimeconsulting.in" &&
-          email !== "anirban@showtimeconsulting.in" ? null : (
+          email !== "anirban@showtimeconsulting.in" &&
+          email !== "abhishek.behara@showtimeconsulting.in" &&
+          email !== "souvik.basak@showtimeconsulting.in"&&
+          email !== "kiranponnoju@showtimeconsulting.in" ? null : (
             <a href="/survey-dashboard" className="menu-buttons">
               <FontAwesomeIcon
                 icon={faPieChart}
@@ -154,7 +161,6 @@ const WelcomePage = () => {
           )}
           {role !== "mod" &&
           role !== "soul" &&
-          email !== "hiteshideshmukh@showtimeconsulting.in" &&
           email !== "aditiambekar@showtimeconsulting.in" &&
           email !== "akash.jaywant@showtimeconsulting.in" &&
           email !== "pratikubale@showtimeconsulting.in" &&
@@ -181,7 +187,6 @@ const WelcomePage = () => {
           )}
           {role !== "mod" &&
           role !== "soul" &&
-          email !== "hiteshideshmukh@showtimeconsulting.in" &&
           email !== "aditiambekar@showtimeconsulting.in" &&
           email !== "pratikubale@showtimeconsulting.in" &&
           email !== "akash.jaywant@showtimeconsulting.in" &&
@@ -202,7 +207,6 @@ const WelcomePage = () => {
           </a>
           {role !== "mod" &&
           role !== "soul" &&
-          email !== "hiteshideshmukh@showtimeconsulting.in" &&
           email !== "aditiambekar@showtimeconsulting.in" &&
           email !== "pratikubale@showtimeconsulting.in" &&
           email !== "akash.jaywant@showtimeconsulting.in" &&

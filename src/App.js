@@ -29,6 +29,7 @@ import UpdateIDI from "./components/UpdateIDI";
 import WelcomePage from "./components/WelcomePage";
 import NewCreateMom from "./components/NewCreateMom";
 import SurveyDashboard from "./components/SurveyDashboard";
+import CandidateList from "./components/CandidateList";
 
 const App = () => {
   return (
@@ -57,6 +58,7 @@ const App = () => {
         <Route exact path="/survey-dashboard" element={<SurveyDashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/userdashboard" element={<UserDashboard />} />
+        <Route path="/candidate-list" element={<CandidateList />} />
         <Route path="/momdata" element={<MomData />} />
         <Route path="/reportdata" element={<Report />} />
         <Route path="/viewmom/:momId" element={<ViewMom />} />

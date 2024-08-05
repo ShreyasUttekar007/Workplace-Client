@@ -85,6 +85,14 @@ const MediaScan = () => {
     fetchUserRole();
   }, []);
 
+  const handleStartDateChange = (date) => {
+    setStartDate(date);
+    if (date && endDate && date > endDate) {
+      setEndDate(null);
+    }
+    filterMomDataByDateRange(date, endDate);
+  };
+
   const handleEndDateChange = (date) => {
     setEndDate(date);
 
@@ -576,9 +584,9 @@ const MediaScan = () => {
             <div className="mom-count">
               <div
                 className="select-columns"
-                style={{
-                  gridTemplateColumns: "1fr 1fr 1fr"
-                }}
+                // style={{
+                //   gridTemplateColumns: "1fr 1fr 1fr"
+                // }}
                 
               >
                 <label>
@@ -642,7 +650,31 @@ const MediaScan = () => {
                     ))}
                   </select>
                 </label>
-
+                <label>
+                  Start Date
+                  <input
+                    type="date"
+                    value={
+                      startDate ? startDate.toISOString().split("T")[0] : ""
+                    }
+                    onChange={(e) =>
+                      handleStartDateChange(new Date(e.target.value))
+                    }
+                    style={{ margin: "5px" }}
+                  />
+                </label>
+                <label>
+                  End Date
+                  <input
+                    type="date"
+                    value={endDate ? endDate.toISOString().split("T")[0] : ""}
+                    onChange={(e) =>
+                      handleEndDateChange(new Date(e.target.value))
+                    }
+                    disabled={!startDate}
+                    style={{ margin: "5px" }}
+                  />
+                </label>
                 <div className="export-button">
                   <ReactToPrint
                     trigger={() => (

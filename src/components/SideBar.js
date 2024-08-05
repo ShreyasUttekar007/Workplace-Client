@@ -117,16 +117,7 @@ const SideBar = () => {
               IDI Report
             </div>
           </a>
-          <a href="/caste-dashboard" className="w3-bar-item w3-button">
-            <div className="main-text-box">
-              <FontAwesomeIcon
-                icon={faPieChart}
-                className="font-pdf2"
-                size="1x"
-              />
-              Caste Dashboard
-            </div>
-          </a>
+
           <a href="/booth-list" className="w3-bar-item w3-button">
             <div className="main-text-box">
               <FontAwesomeIcon
@@ -137,6 +128,16 @@ const SideBar = () => {
               Booth List
             </div>
           </a>
+          <a href="/candidate-list" className="w3-bar-item w3-button">
+            <div className="main-text-box">
+              <FontAwesomeIcon
+                icon={faListUl}
+                className="font-pdf2"
+                size="1x"
+              />
+              Candidate List
+            </div>
+          </a>
           <a href="/media-scan" className="w3-bar-item w3-button">
             <div className="main-text-box">
               <FontAwesomeIcon
@@ -145,6 +146,16 @@ const SideBar = () => {
                 size="1x"
               />
               Media Scan
+            </div>
+          </a>
+          <a href="/caste-dashboard" className="w3-bar-item w3-button">
+            <div className="main-text-box">
+              <FontAwesomeIcon
+                icon={faPieChart}
+                className="font-pdf2"
+                size="1x"
+              />
+              Caste Dashboard
             </div>
           </a>
           <a href="/state-dashboard" className="w3-bar-item w3-button">
@@ -165,7 +176,10 @@ const SideBar = () => {
           email !== "ashish@showtimeconsulting.in" &&
           email !== "shouvik@showtimeconsulting.in" &&
           email !== "aparnaj@showtimeconsulting.in" &&
-          email !== "anirban@showtimeconsulting.in" ? null : (
+          email !== "anirban@showtimeconsulting.in" &&
+          email !== "abhishek.behara@showtimeconsulting.in" &&
+          email !== "souvik.basak@showtimeconsulting.in"&&
+          email !== "kiranponnoju@showtimeconsulting.in" ? null : (
             <a href="/survey-dashboard" className="w3-bar-item w3-button">
               <div className="main-text-box">
                 <FontAwesomeIcon
@@ -247,7 +261,6 @@ const SideBar = () => {
           )}
           {role !== "mod" &&
           role !== "soul" &&
-          email !== "hiteshideshmukh@showtimeconsulting.in" &&
           email !== "aditiambekar@showtimeconsulting.in" &&
           email !== "akash.jaywant@showtimeconsulting.in" &&
           email !== "pratikubale@showtimeconsulting.in" &&
@@ -277,7 +290,6 @@ const SideBar = () => {
 
           {role !== "mod" &&
           role !== "soul" &&
-          email !== "hiteshideshmukh@showtimeconsulting.in" &&
           email !== "aditiambekar@showtimeconsulting.in" &&
           email !== "pratikubale@showtimeconsulting.in" &&
           email !== "akash.jaywant@showtimeconsulting.in" &&

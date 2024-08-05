@@ -9,7 +9,7 @@ import data from "../dataFile.json";
 import ReactPaginate from "react-paginate";
 import DashboardReport from "./DashboardReport";
 
-const Report = () => {
+const CandidateList = () => {
   const [momData, setMomData] = useState([]);
   const [responseAllMomCount, setResponseAllMomCount] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -170,7 +170,7 @@ const Report = () => {
         setUserRole(role);
 
         const momDataResponse = await axios.get(
-          `http://15.206.128.21:5000/api/report/get-report/${userId}`,
+          `http://15.206.128.21:5000/api/candidate/get-mom/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -407,7 +407,7 @@ const Report = () => {
           setFilteredMomData(sortedMomData);
         } else {
           const responseMomByPC = await axios.get(
-            `http://15.206.128.21:5000/api/report/get-report-by-pc/${value}`,
+            `http://15.206.128.21:5000/api/candidate/get-mom-by-pc/${value}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -429,7 +429,7 @@ const Report = () => {
           setFilteredMomData(sortedMomData);
         } else {
           const responseMomByConstituency = await axios.get(
-            `http://15.206.128.21:5000/api/report/get-report-by-constituency/${value}`,
+            `http://15.206.128.21:5000/api/candidate/get-mom-by-constituency/${value}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -441,7 +441,7 @@ const Report = () => {
           setFilteredMomData(responseMomByConstituency.data.moms);
         }
       } catch (error) {
-        console.error("Error fetching report data by constituency:", error);
+        console.error("Error fetching candidate data by constituency:", error);
       }
     } else if (name === "zone") {
       try {
@@ -451,7 +451,7 @@ const Report = () => {
           setFilteredMomData(sortedMomData);
         } else {
           const responseMomByZone = await axios.get(
-            `http://15.206.128.21:5000/api/report/get-report-by-zone/${value}`,
+            `http://15.206.128.21:5000/api/candidate/get-mom-by-zone/${value}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -463,7 +463,7 @@ const Report = () => {
           setFilteredMomData(responseMomByZone.data.moms);
         }
       } catch (error) {
-        console.error("Error fetching report data by zone:", error);
+        console.error("Error fetching candidate data by zone:", error);
       }
     }
   };
@@ -472,7 +472,7 @@ const Report = () => {
     try {
       const token = await localforage.getItem("token");
       await axios.delete(
-        `http://15.206.128.21:5000/api/report/delete-report/${momId}`,
+        `http://15.206.128.21:5000/api/candidate/delete-mom/${momId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -482,7 +482,7 @@ const Report = () => {
       const updatedMomData = momData.filter((mom) => mom._id !== momId);
       setMomData(updatedMomData);
       setFilteredMomData(updatedMomData);
-      window.alert("report is deleted successfully");
+      window.alert("candidate is deleted successfully");
       window.location.reload();
     } catch (error) {
       console.error("Error deleting mom:", error);
@@ -528,7 +528,7 @@ const Report = () => {
         const token = await localforage.getItem("token");
 
         const response = await axios.get(
-          "http://15.206.128.21:5000/api/report/count-documents",
+          "http://15.206.128.21:5000/api/candidate/count-documents",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -547,7 +547,7 @@ const Report = () => {
         const token = await localforage.getItem("token");
 
         const response = await axios.get(
-          "http://15.206.128.21:5000/api/report/count-form20-documents",
+          "http://15.206.128.21:5000/api/candidate/count-form20-documents",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -568,7 +568,7 @@ const Report = () => {
     // Update filtered document counts whenever filteredMomData changes
     const updateFilteredCounts = () => {
       const filteredDocsCount = filteredMomData.reduce((acc, mom) => {
-        if (mom.document) acc++;
+        if (mom.candidateNameEnglish) acc++;
         return acc;
       }, 0);
       const filteredForm20Count = filteredMomData.reduce((acc, mom) => {
@@ -598,7 +598,9 @@ const Report = () => {
         ) : (
           <>
             <div className="mom-count">
-              <div className="select-columns">
+              <div className="select-columns" style={{
+                  gridTemplateColumns: "1fr 1fr"
+                }}>
                 <label>
                   Zone
                   <select
@@ -619,7 +621,7 @@ const Report = () => {
                     ))}
                   </select>
                 </label>
-                <label>
+                {/* <label>
                   Parliament Constituency
                   <select
                     name="pc"
@@ -647,7 +649,7 @@ const Report = () => {
                         </option>
                       ))}
                   </select>
-                </label>
+                </label> */}
                 <label>
                   Assembly Constituency
                   <select
@@ -676,7 +678,7 @@ const Report = () => {
                   </select>
                 </label>
 
-                <label>
+                {/* <label>
                   Search
                   <input
                     type="text"
@@ -685,7 +687,7 @@ const Report = () => {
                     onChange={handleSearchInputChange}
                     style={{ margin: "5px" }}
                   />
-                </label>
+                </label> */}
               </div>
               <div
                 className="select-columns"
@@ -697,12 +699,12 @@ const Report = () => {
                 }}
               >
                 <div className="total-count" style={{ margin: "5px" }}>
-                  <h3>Total Reports Count: </h3>
+                  <h3>Total Candidates: </h3>
                   <h6>{responseAllMomCount}</h6>
-                  <h3> Total AC Reports: </h3>
+                  <h3> Zone/AC-wise Candidates: </h3>
                   <h6>{filteredDocumentCount}</h6> {/* Updated line */}
-                  <h3>Total Form-20: </h3>
-                  <h6>{filteredForm20DocumentCount}</h6> {/* Updated line */}
+                  {/* <h3>Total Form-20: </h3>
+                  <h6>{filteredForm20DocumentCount}</h6> Updated line */}
                 </div>
               </div>
             </div>
@@ -710,25 +712,6 @@ const Report = () => {
               <table className="mom-table">
                 <thead>
                   <tr>
-                    <th>PCM Name</th>
-
-                    <th
-                      onClick={() => requestSort("constituency")}
-                      className={getClassNamesFor("constituency")}
-                    >
-                      District{" "}
-                      {getClassNamesFor("constituency") === "asc" && "↑"}
-                      {getClassNamesFor("constituency") === "desc" && "↓"}
-                    </th>
-                    <th
-                      onClick={() => requestSort("leaderName")}
-                      className={getClassNamesFor("leaderName")}
-                    >
-                      Parliamentary Constituency{" "}
-                      {getClassNamesFor("leaderName") === "asc" && "↑"}
-                      {getClassNamesFor("leaderName") === "desc" && "↓"}
-                    </th>
-
                     <th
                       onClick={() => requestSort("dom")}
                       className={getClassNamesFor("dom")}
@@ -738,132 +721,35 @@ const Report = () => {
                       {getClassNamesFor("dom") === "asc" && "↑"}
                       {getClassNamesFor("dom") === "desc" && "↓"}
                     </th>
-                    {/* <th
-                      onClick={() => requestSort("dom")}
-                      className={getClassNamesFor("dom")}
-                      style={{ textAlign: "left" }}
-                    >
-                      Created Date {getClassNamesFor("dom") === "asc" && "↑"}
-                      {getClassNamesFor("dom") === "desc" && "↓"}
-                    </th> */}
                     <th
                       onClick={() => requestSort("dom")}
                       className={getClassNamesFor("dom")}
                       style={{ textAlign: "left" }}
                     >
-                      Last Updated {getClassNamesFor("dom") === "asc" && "↑"}
+                      Candidate Name (English) {getClassNamesFor("dom") === "asc" && "↑"}
                       {getClassNamesFor("dom") === "desc" && "↓"}
                     </th>
-                    <th style={{ textAlign: "center" }}>AC Reports</th>
-                    <th style={{ textAlign: "center" }}>Download</th>
+                    <th style={{ textAlign: "center" }}>Candidate Name (Marathi)</th>
+                    <th style={{ textAlign: "center" }}>Caste</th>
+                    <th style={{ textAlign: "center" }}>Age</th>
+                    <th style={{ textAlign: "center" }}>Gender</th>
+                    <th style={{ textAlign: "center" }}>Candidate Party Name</th>
+                    <th style={{ textAlign: "center" }}>Alliance</th>
                   </tr>
                 </thead>
                 <tbody>
                   {displayedMomData.map((mom) => (
                     <tr key={mom.id}>
-                      <td>{mom.userId.userName}</td>
-                      <td>{mom.district}</td>
-                      <td>{mom.pc}</td>
-                      <td>{mom.constituency}</td>
-                      {/* <td>{formatIndianDate(mom.createdAt)}</td> */}
-                      <td>{formatIndianDate(mom.updatedAt)}</td>
-                      <td className="td-extra">
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "column-reverse",
-                            alignItems: "center",
-                          }}
-                        >
-                          {role !== "mod" ? null : (
-                            <button
-                              onClick={() => handleDeleteMom(mom._id)}
-                              style={{
-                                width: "fit-content",
-                                backgroundColor: "red",
-                              }}
-                            >
-                              Delete
-                            </button>
-                          )}
-
-                          {mom.document ? (
-                            <a
-                              href={mom.document}
-                              download={`Document_of_${mom.leaderName}.pdf`}
-                              className="download-link"
-                              target="_blank"
-                              style={{ color: "#008cff" }}
-                            >
-                              View
-                            </a>
-                          ) : (
-                            <span>No Document</span>
-                          )}
-
-                          {role !== "mod" &&
-                          role !== "soul" &&
-                          email !== "aditiambekar@showtimeconsulting.in" &&
-                          email !== "pratikubale@showtimeconsulting.in" &&
-                          email !== "akash.jaywant@showtimeconsulting.in" &&
-                          email !== "kaustavv.das@showtimeconsulting.in" &&
-                          email !==
-                            "mahimamishra@showtimeconsulting.in" ? null : (
-                            <Link
-                              to={`/update-report/${mom._id}`}
-                              style={{
-                                textDecoration: "none",
-                                padding: "5px 0px",
-                                color: "#008cff",
-                              }}
-                            >
-                              Update
-                            </Link>
-                          )}
-                        </div>
-                      </td>
-                      <td className="td-extra">
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "column-reverse",
-                            alignItems: "center",
-                          }}
-                        >
-                          {/* {role !== "mod" ? null : (
-                            <button
-                              onClick={() => handleDeleteMom(mom._id)}
-                              style={{
-                                width: "fit-content",
-                                backgroundColor: "red",
-                              }}
-                            >
-                              Delete
-                            </button>
-                          )} */}
-                          {mom.form20Document && (
-                            <a
-                              href={mom.form20Document}
-                              download={`Document_of_${mom.leaderName}.pdf`}
-                              className="download-link"
-                              target="_blank"
-                              style={{ color: "#008cff" }}
-                            >
-                              Form-20
-                            </a>
-                          )}
-                          {/* <Link
-                            to={`/update-report/${mom._id}`}
-                            style={{
-                              textDecoration: "none",
-                              padding: "5px 0px",
-                              color: "#008cff",
-                            }}
-                          >
-                            Update
-                          </Link> */}
-                        </div>
-                      </td>
+                      {/* <td>{mom.zone}</td>
+                      <td>{mom.district}</td> */}
+                      <td style={{maxWidth:"200px"}}>{mom.constituency}</td>
+                      <td style={{maxWidth:"200px"}}>{mom.candidateNameEnglish}</td>
+                      <td className="td-extra" style={{maxWidth:"200px"}}>{mom.candidateNameMarathi}</td>
+                      <td className="td-extra" style={{maxWidth:"200px"}}>{mom.casteEnglish}</td>
+                      <td className="td-extra" style={{maxWidth:"200px"}}>{mom.ageEnglish}</td>
+                      <td className="td-extra" style={{maxWidth:"200px"}}>{mom.genderEnglish}</td>
+                      <td className="td-extra" style={{maxWidth:"200px"}}>{mom.candidatePartyFullName}</td>
+                      <td className="td-extra" style={{maxWidth:"200px"}}>{mom.alliance}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -889,4 +775,4 @@ const Report = () => {
   );
 };
 
-export default Report;
+export default CandidateList;
