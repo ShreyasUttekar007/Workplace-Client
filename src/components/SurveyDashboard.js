@@ -72,6 +72,9 @@ const SurveyDashboard = () => {
           "samarth@showtimeconsulting.in",
           "anuragsaxena@showtimeconsulting.in",
           "at@showtimeconsulting.in",
+          "prasad.p@showtimeconsulting.in",
+          "shantanu@showtimeconsulting.in",
+          "robbinsharrma@showtimeconsulting.in"
         ],
       },
       {
@@ -80,8 +83,7 @@ const SurveyDashboard = () => {
         link: "https://app.powerbi.com/view?r=eyJrIjoiMGJjNDQxOWQtOTZiOS00MzI1LTkwYmMtZDQ0NjQxZGI2NTAyIiwidCI6ImE0NDY0OWI4LTg3ZDQtNDUyNC04ZjYwLTEwNTgxMGRhZDRiNiJ9",
         users: [
           "aparnaj@showtimeconsulting.in",
-          "shouvik@showtimeconsulting.in",
-          "rishabhsachdeva@showtimeconsulting.in",
+          "shipra.bhardwaj@showtimeconsulting.in",
         ],
       },
       {
@@ -110,6 +112,7 @@ const SurveyDashboard = () => {
           "abhishek.behara@showtimeconsulting.in",
           "ashwinibambal@showtimeconsulting.in",
           "praveenkumar@showtimeconsulting.in",
+          "miteshbhadane@showtimeconsulting.in",
         ],
       },
       {
@@ -119,6 +122,8 @@ const SurveyDashboard = () => {
         users: [
           "bikash@showtimeconsulting.in",
           "siddharthag@showtimeconsulting.in",
+          "ashutosh.pandey@showtimeconsulting.in",
+          "mandanna@showtimeconsulting.in",
         ],
       },
       {

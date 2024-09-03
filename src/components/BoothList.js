@@ -602,6 +602,7 @@ const BoothList = () => {
                 <table className="mom-table">
                   <thead>
                     <tr>
+                      <th style={{ textAlign: "center" }}>Sr.No</th>
                       <th
                         onClick={() => requestSort("constituency")}
                         className={getClassNamesFor("constituency")}
@@ -623,8 +624,9 @@ const BoothList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredMomData.map((mom) => (
+                    {filteredMomData.map((mom, index) => (
                       <tr key={mom.id}>
+                        <td style={{ textAlign: "center" }}>{index + 1}</td>
                         <td>{mom.booth}</td>
                         <td style={{ maxWidth: "400px" }}>{mom.address}</td>
                       </tr>

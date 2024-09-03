@@ -1,20 +1,24 @@
 import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
-import { styles } from "react-select";
 import "../css/login.css";
 import img from "../STC_logo-01.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import localforage from "localforage";
 
-const SignUp = () => {
+const UpdateUser = () => {
+  const { userId } = useParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
   const [roles, setRoles] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const history = useNavigate();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const handleRoleChange = (selectedRoles) => {
     setRoles(selectedRoles.map((role) => role.value));
@@ -28,20 +32,69 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://15.206.128.21:5000/api/auth/signup",
+      await axios.put(
+        `http://15.206.128.21:5000/api/auth/update-user/${userId}`,
         {
           userName,
           email,
-          password,
           roles,
         }
       );
-      alert("Sign Up successful!");
-      window.location.reload();
+      alert("User updated successfully!");
+      history("/userdashboard");
     } catch (error) {
-      console.error("Sign Up failed:", error.response.data.message);
+      console.error("Update failed:", error.response?.data?.message || error.message);
     }
+  };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const token = await localforage.getItem("token");
+        const response = await axios.get(
+          `http://15.206.128.21:5000/api/auth/users/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const userData = response.data;
+        setUser(userData);
+        setEmail(userData.email || "");
+        setUserName(userData.userName || "");
+        setRoles(userData.roles || []);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+        setError("Failed to fetch user");
+        setLoading(false);
+      }
+    };
+
+    if (userId) {
+      fetchUser();
+    } else {
+      setError("User ID is missing");
+      setLoading(false);
+    }
+  }, [userId]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
+  const customStyles = {
+    indicatorSeparator: (provided, state) => ({
+      ...provided,
+      display: state.selectProps.value && state.selectProps.value.length > 0 ? "block" : "none",
+    }),
+    control: (provided, state) => ({
+      ...provided,
+      border: state.isFocused ? "2px solid #4CAF50" : "2px solid #ccc",
+      borderRadius: "4px",
+      boxShadow: state.isFocused ? "0 0 5px rgba(76, 175, 80, 0.7)" : "none",
+      cursor: "pointer",
+    }),
   };
 
   const roleOptions = [
@@ -56,9 +109,6 @@ const SignUp = () => {
     { value: "Thane + Palghar", label: "Thane + Palghar" },
     { value: "Western Vidarbha", label: "Western Vidarbha" },
     { value: "Western Maharashtra", label: "Western Maharashtra" },
-  ];
-
-  const roleOptions3 = [
     { value: "Ahmednagar", label: "Ahmednagar" },
     { value: "Akola", label: "Akola" },
     { value: "Washim", label: "Washim" },
@@ -98,9 +148,6 @@ const SignUp = () => {
     { value: "Ratnagiri", label: "Ratnagiri" },
     { value: "Sindhudurg", label: "Sindhudurg" },
     { value: "Wardha", label: "Wardha" },
-  ];
-
-  const roleOptions2 = [
     { value: "1-Akkalkuwa(ST)", label: "1-Akkalkuwa(ST)" },
     { value: "2-Shahada(ST)", label: "2-Shahada(ST)" },
     { value: "3-Nandurbar(ST)", label: "3-Nandurbar(ST)" },
@@ -397,168 +444,60 @@ const SignUp = () => {
     { value: "288-Jat", label: "288-Jat" },
   ];
 
-  const customStyles = {
-    indicatorSeparator: (provided, state) => ({
-      ...provided,
-      display:
-        state.selectProps.value && state.selectProps.value.length > 0
-          ? "block"
-          : "none",
-    }),
-    control: (provided, state) => ({
-      ...provided,
-      border: state.isFocused ? "2px solid #4CAF50" : "2px solid #ccc",
-      borderRadius: "4px",
-      boxShadow: state.isFocused ? "0 0 5px rgba(76, 175, 80, 0.7)" : "none",
-      cursor: "pointer",
-    }),
-  };
-
   return (
-    <>
-      <div className="container">
-        <div className="login" style={{ width: "330px", marginTop: "120px" }}>
-          <img src={img} className="img" alt="STC Logo" />
-          <h1>Sign Up</h1>
-          <form onSubmit={handleSubmit} style={{ alignItems: "center" }}>
-            <input
-              type="text"
-              placeholder="Enter Name"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-              required
-              style={{ width: "300px" }}
-            />
-            <input
-              type="email"
-              placeholder="Enter Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              style={{ width: "300px" }}
-            />
-            <div
-              className="password-input"
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                position: "relative",
-                marginBottom: "20px",
-              }}
-            >
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                style={{ width: "300px" }}
-              />
-              <div
-                className="eye-icon"
-                onClick={toggleShowPassword}
-                style={{
-                  position: "absolute",
-                  right: "10px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  cursor: "pointer",
-                }}
-              >
-                <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
-              </div>
-            </div>
-            <div
-              className="roles"
-              style={{
-                width: "300px",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <label
-                style={{
-                  marginBottom: "5px",
-                  textAlign: "center",
-                  color: "black",
-                }}
-              >
-                Select Roles
-              </label>
-              <Select
-                isMulti
-                options={roleOptions}
-                value={roleOptions.filter((role) => roles.includes(role.value))}
-                onChange={handleRoleChange}
-                styles={customStyles}
-              />
-            </div>
-            <div
-              className="roles"
-              style={{
-                width: "300px",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <label
-                style={{
-                  marginBottom: "5px",
-                  textAlign: "center",
-                  color: "black",
-                }}
-              >
-                Select District Roles
-              </label>
-              <Select
-                isMulti
-                options={roleOptions3}
-                value={roleOptions3.filter((role) =>
-                  roles.includes(role.value)
-                )}
-                onChange={handleRoleChange}
-                styles={customStyles}
-              />
-            </div>
-            <div
-              className="roles"
-              style={{
-                width: "300px",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <label
-                style={{
-                  marginBottom: "5px",
-                  textAlign: "center",
-                  color: "black",
-                }}
-              >
-                Select AC Roles
-              </label>
-              <Select
-                isMulti
-                options={roleOptions2}
-                value={roleOptions2.filter((role) =>
-                  roles.includes(role.value)
-                )}
-                onChange={handleRoleChange}
-                styles={customStyles}
-              />
-            </div>
-
-            <div className="bttn">
-              <button type="submit" className="button">
-                Sign Up
-              </button>
-            </div>
-          </form>
+    <div className="container">
+      <div className="login" >
+      <img src={img} className="img" alt="STC Logo" />
+      <form onSubmit={handleSubmit}>
+        <div>
+          <input
+          style={{width: "100%"}}
+            type="email"
+            placeholder="Enter Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
+        <div>
+          <input
+            type="text"
+            style={{width: "100%"}}
+            placeholder="Enter Name"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+            required
+          />
+        </div>
+        {/* <div>
+          <label>Password:</label>
+          <div className="password-input">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <FontAwesomeIcon
+              icon={showPassword ? faEyeSlash : faEye}
+              onClick={toggleShowPassword}
+            />
+          </div>
+        </div> */}
+        <div>
+          <Select
+            options={roleOptions}
+            value={roleOptions.filter((option) => roles.includes(option.value))}
+            onChange={handleRoleChange}
+            isMulti
+            styles={customStyles}
+          />
+        </div>
+        <button type="submit" >Update User</button>
+      </form>
       </div>
-    </>
+    </div>
   );
 };
 
-export default SignUp;
+export default UpdateUser;

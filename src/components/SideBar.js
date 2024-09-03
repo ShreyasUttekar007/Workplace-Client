@@ -178,8 +178,11 @@ const SideBar = () => {
           email !== "aparnaj@showtimeconsulting.in" &&
           email !== "anirban@showtimeconsulting.in" &&
           email !== "abhishek.behara@showtimeconsulting.in" &&
-          email !== "souvik.basak@showtimeconsulting.in"&&
-          email !== "kiranponnoju@showtimeconsulting.in" ? null : (
+          email !== "souvik.basak@showtimeconsulting.in" &&
+          email !== "kiranponnoju@showtimeconsulting.in" &&
+          email !== "miteshbhadane@showtimeconsulting.in" &&
+          email !== "mandanna@showtimeconsulting.in" &&
+          email !== "shipra.bhardwaj@showtimeconsulting.in" ? null : (
             <a href="/survey-dashboard" className="w3-bar-item w3-button">
               <div className="main-text-box">
                 <FontAwesomeIcon
@@ -265,7 +268,10 @@ const SideBar = () => {
           email !== "akash.jaywant@showtimeconsulting.in" &&
           email !== "pratikubale@showtimeconsulting.in" &&
           email !== "kaustavv.das@showtimeconsulting.in" &&
-          email !== "mahimamishra@showtimeconsulting.in" ? null : (
+          email !== "mahimamishra@showtimeconsulting.in" &&
+          email !== "koushik@showtimeconsulting.in" &&
+          email !== "somali@showtimeconsulting.in" &&
+          email !== "govind.lilhare@showtimeconsulting.in" ? null : (
             <a href="/createacreport" className="w3-bar-item w3-button">
               <div className="main-text-box">
                 <FontAwesomeIcon
@@ -294,7 +300,10 @@ const SideBar = () => {
           email !== "pratikubale@showtimeconsulting.in" &&
           email !== "akash.jaywant@showtimeconsulting.in" &&
           email !== "kaustavv.das@showtimeconsulting.in" &&
-          email !== "mahimamishra@showtimeconsulting.in" ? null : (
+          email !== "mahimamishra@showtimeconsulting.in" &&
+          email !== "koushik@showtimeconsulting.in" &&
+          email !== "somali@showtimeconsulting.in" &&
+          email !== "govind.lilhare@showtimeconsulting.in" ? null : (
             <a href="/create-idi" className="w3-bar-item w3-button">
               <div className="main-text-box">
                 <FontAwesomeIcon

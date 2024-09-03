@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import UpdateLogin from "./components/UpdateLogin";
@@ -30,41 +31,46 @@ import WelcomePage from "./components/WelcomePage";
 import NewCreateMom from "./components/NewCreateMom";
 import SurveyDashboard from "./components/SurveyDashboard";
 import CandidateList from "./components/CandidateList";
+import UpdateUser from "./components/UpdateUser";
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<Login />} />
-        <Route exact path="/nWuRGm1GvLXyCmQ6TbxqfQ7YasvDlY8z87TxUHrX0HUhX0Pxa9" element={<Register />} />
-        <Route exact path="/createMom" element={<CreateMom />} />
-        <Route exact path="/new-create-mom" element={<NewCreateMom />} />
-        <Route exact path="/create-idi" element={<CreateIDI />} />
-        <Route exact path="/welcome" element={<WelcomePage />} />
-        <Route exact path="/createacreport" element={<CreatePcReport />} />
-        <Route exact path="/create-media-scan" element={<CreateMediaScan />} />
-        <Route exact path="/create-form20" element={<Form20 />} />
-        <Route exact path="/idi-data" element={<DataIDI />} />
-        <Route exact path="/form20-dashboard" element={<Form20Dashboard />} />
-        <Route exact path="/media-scan" element={<MediaScan />} />
-        <Route exact path="/create-form17" element={<Form17 />} />
-        <Route exact path="/form17-dashboard" element={<Form17Dashboard />} />
-        <Route exact path="/gatt-gann" element={<Gatt />} />
-        <Route exact path="/gatt-gannn-dashboard" element={<GattDashboard />} />
-        <Route exact path="/caste-dashboard" element={<CasteDashboard />} />
-        <Route exact path="/booth-list" element={<BoothList />} />
-        <Route exact path="/update" element={<UpdateLogin />} />
-        <Route exact path="/state-dashboard" element={<StateDashboard />} />
-        <Route exact path="/survey-dashboard" element={<SurveyDashboard />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/userdashboard" element={<UserDashboard />} />
-        <Route path="/candidate-list" element={<CandidateList />} />
-        <Route path="/momdata" element={<MomData />} />
-        <Route path="/reportdata" element={<Report />} />
-        <Route path="/viewmom/:momId" element={<ViewMom />} />
-        <Route path="/update-mom/:momId" element={<EditMom />} />
-        <Route path="/update-idi/:momId" element={<UpdateIDI />} />
-        <Route path="/update-report/:momId" element={<UpdateReport />} />
+        <Route path="/" element={<Login />} />
+        <Route
+          path="/nWuRGm1GvLXyCmQ6TbxqfQ7YasvDlY8z87TxUHrX0HUhX0Pxa9"
+          element={<ProtectedRoute element={<Register />} role="mod" />}
+        />
+        <Route path="/createMom" element={<ProtectedRoute element={<CreateMom />} />} />
+        <Route path="/new-create-mom" element={<ProtectedRoute element={<NewCreateMom />} />} />
+        <Route path="/create-idi" element={<ProtectedRoute element={<CreateIDI />} />} />
+        <Route path="/welcome" element={<ProtectedRoute element={<WelcomePage />} />} />
+        <Route path="/createacreport" element={<ProtectedRoute element={<CreatePcReport />} />} />
+        <Route path="/create-media-scan" element={<ProtectedRoute element={<CreateMediaScan />} />} />
+        <Route path="/create-form20" element={<ProtectedRoute element={<Form20 />} />} />
+        <Route path="/idi-data" element={<ProtectedRoute element={<DataIDI />} />} />
+        <Route path="/form20-dashboard" element={<ProtectedRoute element={<Form20Dashboard />} />} />
+        <Route path="/media-scan" element={<ProtectedRoute element={<MediaScan />} />} />
+        <Route path="/create-form17" element={<ProtectedRoute element={<Form17 />} />} />
+        <Route path="/form17-dashboard" element={<ProtectedRoute element={<Form17Dashboard />} />} />
+        <Route path="/gatt-gann" element={<ProtectedRoute element={<Gatt />} />} />
+        <Route path="/gatt-gannn-dashboard" element={<ProtectedRoute element={<GattDashboard />} />} />
+        <Route path="/caste-dashboard" element={<ProtectedRoute element={<CasteDashboard />} />} />
+        <Route path="/booth-list" element={<ProtectedRoute element={<BoothList />} />} />
+        <Route path="/update" element={<ProtectedRoute element={<UpdateLogin />} />} />
+        <Route path="/state-dashboard" element={<ProtectedRoute element={<StateDashboard />} />} />
+        <Route path="/survey-dashboard" element={<ProtectedRoute element={<SurveyDashboard />} />} />
+        <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
+        <Route path="/userdashboard" element={<ProtectedRoute element={<UserDashboard />} />} />
+        <Route path="/candidate-list" element={<ProtectedRoute element={<CandidateList />} />} />
+        <Route path="/momdata" element={<ProtectedRoute element={<MomData />} />} />
+        <Route path="/reportdata" element={<ProtectedRoute element={<Report />} />} />
+        <Route path="/update-user/:userId" element={<ProtectedRoute element={<UpdateUser />} />} />
+        <Route path="/viewmom/:momId" element={<ProtectedRoute element={<ViewMom />} />} />
+        <Route path="/update-mom/:momId" element={<ProtectedRoute element={<EditMom />} />} />
+        <Route path="/update-idi/:momId" element={<ProtectedRoute element={<UpdateIDI />} />} />
+        <Route path="/update-report/:momId" element={<ProtectedRoute element={<UpdateReport />} />} />
       </Routes>
     </Router>
   );

@@ -75,7 +75,7 @@ const WelcomePage = () => {
         <h1 className="header">Welcome, {userName}!</h1>
       </div>
       <div className="buttons-container">
-        <h2 className="head-text-welcome">Dashboard</h2>
+        <h2 className="head-text-welcome">Dashboards</h2>
         <div className="buttons">
           <a href="/momdata" className="menu-buttons">
             <FontAwesomeIcon icon={faFolder} className="font-pdf" size="3x" />
@@ -120,8 +120,11 @@ const WelcomePage = () => {
           email !== "aparnaj@showtimeconsulting.in" &&
           email !== "anirban@showtimeconsulting.in" &&
           email !== "abhishek.behara@showtimeconsulting.in" &&
-          email !== "souvik.basak@showtimeconsulting.in"&&
-          email !== "kiranponnoju@showtimeconsulting.in" ? null : (
+          email !== "souvik.basak@showtimeconsulting.in" &&
+          email !== "kiranponnoju@showtimeconsulting.in" &&
+          email !== "miteshbhadane@showtimeconsulting.in" &&
+          email !== "mandanna@showtimeconsulting.in" &&
+          email !== "shipra.bhardwaj@showtimeconsulting.in" ? null : (
             <a href="/survey-dashboard" className="menu-buttons">
               <FontAwesomeIcon
                 icon={faPieChart}
@@ -165,7 +168,10 @@ const WelcomePage = () => {
           email !== "akash.jaywant@showtimeconsulting.in" &&
           email !== "pratikubale@showtimeconsulting.in" &&
           email !== "kaustavv.das@showtimeconsulting.in" &&
-          email !== "mahimamishra@showtimeconsulting.in" ? null : (
+          email !== "mahimamishra@showtimeconsulting.in" &&
+          email !== "koushik@showtimeconsulting.in" &&
+          email !== "somali@showtimeconsulting.in" &&
+          email !== "govind.lilhare@showtimeconsulting.in" ? null : (
             <a href="/createMom" className="menu-buttons">
               <FontAwesomeIcon icon={faFile} className="font-pdf" size="3x" />
               Add MoM
@@ -191,7 +197,10 @@ const WelcomePage = () => {
           email !== "pratikubale@showtimeconsulting.in" &&
           email !== "akash.jaywant@showtimeconsulting.in" &&
           email !== "kaustavv.das@showtimeconsulting.in" &&
-          email !== "mahimamishra@showtimeconsulting.in" ? null : (
+          email !== "mahimamishra@showtimeconsulting.in" &&
+          email !== "koushik@showtimeconsulting.in" &&
+          email !== "somali@showtimeconsulting.in" &&
+          email !== "govind.lilhare@showtimeconsulting.in" ? null : (
             <a href="/createacreport" className="menu-buttons">
               <FontAwesomeIcon icon={faFile} className="font-pdf" size="3x" />
               Add AC Report
@@ -211,7 +220,8 @@ const WelcomePage = () => {
           email !== "pratikubale@showtimeconsulting.in" &&
           email !== "akash.jaywant@showtimeconsulting.in" &&
           email !== "kaustavv.das@showtimeconsulting.in" &&
-          email !== "mahimamishra@showtimeconsulting.in" ? null : (
+          email !== "somali@showtimeconsulting.in" &&
+          email !== "govind.lilhare@showtimeconsulting.in" ? null : (
             <a href="/create-idi" className="menu-buttons">
               <FontAwesomeIcon icon={faFile} className="font-pdf" size="3x" />
               Add IDI Report

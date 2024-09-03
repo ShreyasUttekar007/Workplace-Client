@@ -850,7 +850,10 @@ const MomData = () => {
                           email !== "pratikubale@showtimeconsulting.in" &&
                           email !== "akash.jaywant@showtimeconsulting.in" &&
                           email !== "kaustavv.das@showtimeconsulting.in" &&
-                          email !== "mahimamishra@showtimeconsulting.in" ? null : (
+                          email !== "mahimamishra@showtimeconsulting.in" &&
+                          email !== "somali@showtimeconsulting.in" &&
+                          email !==
+                            "govind.lilhare@showtimeconsulting.in" ? null : (
                             <Link
                               to={`/update-mom/${mom._id}`}
                               style={{

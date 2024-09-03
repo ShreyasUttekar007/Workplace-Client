@@ -807,8 +807,9 @@ const Report = () => {
                           email !== "pratikubale@showtimeconsulting.in" &&
                           email !== "akash.jaywant@showtimeconsulting.in" &&
                           email !== "kaustavv.das@showtimeconsulting.in" &&
+                          email !== "somali@showtimeconsulting.in" &&
                           email !==
-                            "mahimamishra@showtimeconsulting.in" ? null : (
+                            "govind.lilhare@showtimeconsulting.in" ? null : (
                             <Link
                               to={`/update-report/${mom._id}`}
                               style={{
@@ -850,6 +851,17 @@ const Report = () => {
                               style={{ color: "#008cff" }}
                             >
                               Form-20
+                            </a>
+                          )}
+                          {mom.boothReport && (
+                            <a
+                              href={mom.boothReport}
+                              download={`Document_of_${mom.leaderName}.pdf`}
+                              className="download-link"
+                              target="_blank"
+                              style={{ color: "#008cff" }}
+                            >
+                              Booth Report
                             </a>
                           )}
                           {/* <Link

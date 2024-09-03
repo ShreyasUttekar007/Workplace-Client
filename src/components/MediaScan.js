@@ -33,6 +33,15 @@ const MediaScan = () => {
   const navigate = useNavigate();
   const componentRef = useRef();
 
+  const [availableDates, setAvailableDates] = useState([]);
+
+  useEffect(() => {
+    const uniqueDates = [
+      ...new Set(momData.map((mom) => mom.createdAt.split("T")[0])),
+    ];
+    setAvailableDates(uniqueDates.sort());
+  }, [momData]);
+
   const [sortConfig, setSortConfig] = useState({
     key: "",
     direction: "desc",
@@ -85,34 +94,52 @@ const MediaScan = () => {
     fetchUserRole();
   }, []);
 
+  useEffect(() => {
+    const uniqueDates = [
+      ...new Set(momData.map((mom) => mom.createdAt.split("T")[0])),
+    ];
+    setAvailableDates(uniqueDates.sort());
+  }, [momData]);
+
   const handleStartDateChange = (date) => {
     setStartDate(date);
-    if (date && endDate && date > endDate) {
-      setEndDate(null);
+    if (date && endDate && date <= endDate) {
+      filterMomDataByDateRange(date, endDate);
+    } else {
+      setFilteredMomData(momData);
     }
-    filterMomDataByDateRange(date, endDate);
   };
-
+  
   const handleEndDateChange = (date) => {
     setEndDate(date);
-
+  
     if (startDate && date && date < startDate) {
       setStartDate(null);
       setEndDate(null);
       alert("Please select a valid end date.");
     } else if (startDate) {
       filterMomDataByDateRange(startDate, date);
+    } else {
+      filterMomDataByDateRange(null, date);
     }
   };
-
+  
   const filterMomDataByDateRange = (start, end) => {
-    const filteredMomDataByDate = momData.filter(
-      (mom) => new Date(mom.dom) >= start && new Date(mom.dom) <= end
-    );
-
+    // Ensure the end date includes the entire end day by setting time to end of day
+    const endOfDay = new Date(end);
+    endOfDay.setHours(23, 59, 59, 999);
+  
+    const filteredMomDataByDate = momData.filter((mom) => {
+      const createdAt = new Date(mom.createdAt);
+      return (
+        (!start || createdAt >= start) && (!end || createdAt <= endOfDay)
+      );
+    });
+  
     setFilteredMomData(filteredMomDataByDate);
   };
-
+  
+  
   const requestSort = (key) => {
     let direction = "asc";
     if (sortConfig.key === key && sortConfig.direction === "asc") {
@@ -156,7 +183,6 @@ const MediaScan = () => {
         mom.partyName.toLowerCase().includes(input.toLowerCase()) ||
         mom.designation.toLowerCase().includes(input.toLowerCase()) ||
         mom.constituency.toLowerCase().includes(input.toLowerCase()) ||
-        mom.dom.toLowerCase().includes(input.toLowerCase()) ||
         mom.leaderName.toLowerCase().includes(input.toLowerCase()) ||
         mom.createdAt.toLowerCase().includes(input.toLowerCase()) ||
         tagsMatch
@@ -256,7 +282,7 @@ const MediaScan = () => {
     let sortableMomData = [...momData];
     if (sortConfig.key) {
       sortableMomData.sort((a, b) => {
-        if (sortConfig.key === "dom" || sortConfig.key === "createdAt") {
+        if (sortConfig.key === "createdAt") {
           const dateA = new Date(a[sortConfig.key]);
           const dateB = new Date(b[sortConfig.key]);
 
@@ -584,10 +610,9 @@ const MediaScan = () => {
             <div className="mom-count">
               <div
                 className="select-columns"
-                // style={{
-                //   gridTemplateColumns: "1fr 1fr 1fr"
-                // }}
-                
+                style={{
+                  gridTemplateColumns: "1fr 1fr 1fr",
+                }}
               >
                 <label>
                   Zone
@@ -650,7 +675,7 @@ const MediaScan = () => {
                     ))}
                   </select>
                 </label>
-                {/* <label>
+                <label>
                   Start Date
                   <input
                     type="date"
@@ -660,6 +685,8 @@ const MediaScan = () => {
                     onChange={(e) =>
                       handleStartDateChange(new Date(e.target.value))
                     }
+                    min={availableDates.length > 0 ? availableDates[0] : ""}
+                    max={endDate ? endDate.toISOString().split("T")[0] : ""}
                     style={{ margin: "5px" }}
                   />
                 </label>
@@ -672,9 +699,15 @@ const MediaScan = () => {
                       handleEndDateChange(new Date(e.target.value))
                     }
                     disabled={!startDate}
+                    min={startDate ? startDate.toISOString().split("T")[0] : ""}
+                    max={
+                      availableDates.length > 0
+                        ? availableDates[availableDates.length - 1]
+                        : ""
+                    }
                     style={{ margin: "5px" }}
                   />
-                </label> */}
+                </label>
                 <div className="export-button">
                   <ReactToPrint
                     trigger={() => (
@@ -694,7 +727,7 @@ const MediaScan = () => {
               <div
                 className="select-columns"
                 style={{
-                  gridTemplateColumns: "1fr 1fr 1fr"
+                  gridTemplateColumns: "1fr 1fr 1fr",
                 }}
               >
                 {/* <label>
@@ -812,16 +845,14 @@ const MediaScan = () => {
                       <td style={{ maxWidth: "300px", textAlign: "center" }}>
                         {mom.organizationName}
                       </td>
-                      <td
-                        style={{ maxWidth: "150px", textAlign: "center" }}
-                      >
+                      <td style={{ maxWidth: "150px", textAlign: "center" }}>
                         <a
                           href={mom.link}
                           target="_blank"
                           rel="noopener noreferrer"
                           style={{
-                            textDecoration:"none",
-                            color:"blue",
+                            textDecoration: "none",
+                            color: "blue",
                           }}
                           className="headline"
                         >
